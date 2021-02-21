@@ -1,4 +1,4 @@
-# vue-todo-app
+# todo-app
 
 https://des86532.github.io/todo-app/
 
