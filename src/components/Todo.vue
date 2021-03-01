@@ -95,6 +95,11 @@
 </template>
 
 <script>
+import axios from 'axios';
+// axios.defaults.baseURL = "api";
+
+const api_host = 'https://floating-dusk-79176.herokuapp.com/';
+
 export default {
   data() {
     return {
@@ -124,6 +129,11 @@ export default {
   },
 
   methods: {
+    getTodo() {
+      axios.get(`/todos`).then((res) => {
+        console.log(res);
+      });
+    },
     addTodo() {
       const time = new Date().getTime();
       if (!this.todo) {
@@ -200,7 +210,11 @@ export default {
             }
         }
     }
-},
+  },
+
+  created() {
+    this.getTodo();
+  }
 };
 </script>
 
