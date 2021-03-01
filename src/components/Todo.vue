@@ -138,8 +138,10 @@ export default {
       });
     },
     removealltodos() {
+      const vm = this;
       axios.get('/delTodos').then((res) => {
         console.log(res);
+        vm.getTodo();
       });
     },
     deletetodo(item) {
