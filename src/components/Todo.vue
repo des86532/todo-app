@@ -63,7 +63,7 @@
                 class="form-check-label"
                 :for="item.id"
                 :class="{'completed':item.completed}"
-              >{{item.text}}</label>
+              >{{item.name}}</label>
             </div>
             <button
               type="button"
@@ -103,23 +103,7 @@ const api_host = 'https://floating-dusk-79176.herokuapp.com/';
 export default {
   data() {
     return {
-      todos: [
-        {
-          id: "1",
-          text: "first",
-          completed: false
-        },
-        {
-          id: "2",
-          text: "second",
-          completed: true
-        },
-        {
-          id: "3",
-          text: "third",
-          completed: true
-        }
-      ],
+      todos: [],
       todo: "",
       status: "all",
       temptodo: {},
@@ -131,21 +115,18 @@ export default {
   methods: {
     getTodo() {
       axios.get(`/todos`).then((res) => {
-        console.log(res);
+        this.todos = res.data;
       });
     },
     addTodo() {
-      const time = new Date().getTime();
-      if (!this.todo) {
-        return;
-      } else {
-        this.todos.push({
-          id: time,
-          text: this.todo,
-          completed: false
-        });
-      }
-      this.todo = "";
+      const vm = this;
+      axios.post('/todos', { name: vm.todo }).then((res) => {
+        console.log(res);
+        vm.getTodo();
+      }).catch((err) => {
+        console.log(err);
+        vm.getTodo();
+      });
     },
     removealltodos() {
         this.todos = [];
@@ -156,11 +137,11 @@ export default {
     },
     edittodo(item) {
         this.temptodo = item;
-        this.temptext = this.temptodo.text;
+        this.temptext = this.temptodo.name;
         this.focusState = true
     },
     donetodo(item) {
-        item.text = this.temptext
+        item.name = this.temptext
         this.temptodo = {};
         this.temptext = '';
     },
