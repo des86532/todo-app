@@ -96,9 +96,18 @@
 
 <script>
 import axios from 'axios';
-// axios.defaults.baseURL = "api";
 
-const api_host = 'https://floating-dusk-79176.herokuapp.com/';
+// api sechm
+// post {
+//   name: string,
+// }
+// put {
+//   id: int,
+//   name: string,
+// }
+// delete {
+//   id: int,
+// }
 
 export default {
   data() {
@@ -129,21 +138,35 @@ export default {
       });
     },
     removealltodos() {
-        this.todos = [];
+      axios.get('/delTodos').then((res) => {
+        console.log(res);
+      });
     },
     deletetodo(item) {
-        const findtodo = this.todos.findIndex(element => element.id == item.id)
-        this.todos.splice(findtodo,1)
+      const vm = this;
+      axios.delete(`/todos/${item.id}`).then((res) => {
+        console.log(res);
+        vm.getTodo();
+      }).catch((err) => {
+        console.log(err);
+      })
     },
     edittodo(item) {
+      const vm = this;
         this.temptodo = item;
-        this.temptext = this.temptodo.name;
+        this.temptext = item.name;
         this.focusState = true
     },
     donetodo(item) {
-        item.name = this.temptext
-        this.temptodo = {};
-        this.temptext = '';
+      const vm = this;
+      axios.put('/todos', { id: item.id, name: vm.temptext }).then((res) => {
+        console.log(res);
+        vm.temptodo = {};
+        vm.temptext = '';
+        vm.getTodo();
+      }).catch((err) => {
+        console.log(err);
+      })
     },
     canceltodo() {
         this.temptodo = {};
