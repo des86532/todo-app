@@ -97,6 +97,8 @@
 <script>
 import axios from 'axios';
 
+axios.defaults.url = 'https://floating-dusk-79176.herokuapp.com/';
+
 // api sechm
 // post {
 //   name: string,
@@ -131,6 +133,7 @@ export default {
       const vm = this;
       axios.post('/todos', { name: vm.todo }).then((res) => {
         console.log(res);
+        vm.todo = '';
         vm.getTodo();
       }).catch((err) => {
         console.log(err);
