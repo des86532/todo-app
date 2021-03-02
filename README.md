@@ -1,6 +1,8 @@
 # todo-app
 
-https://des86532.github.io/todo-app/
+Demo: https://des86532.github.io/todo-app/
+
+部署至 heroku， 剛開啟時 api response 會等比較久
 
 ## Project setup
 ```
