@@ -99,7 +99,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '/' : 'https://floating-dusk-79176.herokuapp.com/';
 
-// api sechm
+// api schema
 // post {
 //   name: string,
 // }
